@@ -66,12 +66,14 @@ Full Example:
 
 ##### `name` (*) : Component Identity
 will use for Identify the autocomplete component. for multiple use purpose.
+
 <br/>
 
 ##### `url` (*) : Ajax URL to fetch
 the URL must be active (not from file). the component will fetch JSON from this URL with (default : `q`) query. like:
 `http://some-url.com/API/list?q=`.
 There are no filter and limit action inside the component. So, do it in your API logic.
+
 <br/>
 
 ##### `param` : name of the search query in Ajax call. default ( q )
@@ -79,6 +81,7 @@ There are no filter and limit action inside the component. So, do it in your API
 
 ##### `limit` : amount of query limit in ajax call.
 example, `limit=5` the AJAX URL will be `http://some-url.com/API/list?q=blabla&limit=5`
+
 <br/>
 
 ##### `anchor`(*) : Anchor for Suggestion list
