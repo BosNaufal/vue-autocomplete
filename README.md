@@ -1,8 +1,11 @@
 # vue-autocomplete
+<<<<<<< HEAD
 Autocomplete Component for [Vue.Js](http://vuejs.org)
 
 <p align="center">
-![vue Autocomplete component](./demo.gif)
+	<a href="./" title="Vue Autocomplete">
+		<img src="./demo.gif" alt="vue Autocomplete component" title="Vue Autocomplete Component"/>
+	</a>
 </p>
 
 ## Intro
@@ -62,34 +65,34 @@ Full Example:
 
 ## Props
 
-### `name` (*) : Component Identity
+#### `name` (*) : Component Identity
 will use for Identify the autocomplete component. for multiple use purpose.
 
-### `url` (*) : Ajax URL to fetch
+#### `url` (*) : Ajax URL to fetch
 the URL must be active (not from file). the component will fetch JSON from this URL with (default : `q`) query. like:
 `http://some-url.com/API/list?q=`.
 There are no filter and limit action inside the component. So, do it in your API logic.
 
-### `param` : name of the search query in Ajax call. default(`q`)
+#### `param` : name of the search query in Ajax call. default(`q`)
 
-### `limit` : amount of query limit in ajax call.
+#### `limit` : amount of query limit in ajax call.
 example, `limit=5` the AJAX URL will be `http://some-url.com/API/list?q=blabla&limit=5`
 
-### `anchor`(*) : Anchor for Suggestion list
+#### `anchor`(*) : Anchor for Suggestion list
 Anchor for listing suggestions. Example `anchor="name"` will get the name object of your JSON data for suggestion listing like ("Bambang", "Sukijan", "Bejo") in the demo above.
 
-### `label` : Description for Suggestion list
-For description to your suggestion. the uses is like `anchor` props but for the description of each suggestion. like ("Alamat", "alamat sesuai ktp", "alamat") in the demo above. not required but if it's null the component will look bad. 
+#### `label` : Description for Suggestion list
+For description to your suggestion. the uses is like `anchor` props but for the description of each suggestion. like ("Alamat", "alamat sesuai ktp", "alamat") in the demo above. not required but if it's null the component will look bad.
 
-### `model` : v-model like for your component
+#### `model` : v-model like for your component
 v-model like of component to make two data binding working like usual.
 
-### `placeholder` : input placeholder (optional)
+#### `placeholder` : input placeholder (optional)
 
-### `class` : Component Class (optional)
+#### `class` : Component Class (optional)
 will generate an class for input element. this only for the input element in autocomplete.
 
-### `id` : Component Id (optional)
+#### `id` : Component Id (optional)
 will generate an Id for input element.
 
 ## Callback Events
@@ -210,13 +213,14 @@ events: {
 
 }
 ```
-
-## Prettify the look soon~
-
+<br/>
+<h3>Prettify the look soon~</h3>
+<br/>
 ## Thank You for Making this helpful for your projects~
 Hopefully this can be usefull for the others.
 
-## Let's talk about some projects with me. Just Contact Me On:
+## Let's talk about some projects with me
+Just Contact Me On:
 - Email: [bosnaufalemail@gmail.com](mailto:bosnaufalemail@gmail.com)
 - Skype Id: bosnaufal254
 - twitter: [@BosNaufal](https://twitter.com/BosNaufal)
@@ -224,3 +228,6 @@ Hopefully this can be usefull for the others.
 ## License
 [MIT](http://opensource.org/licenses/MIT)
 Copyright (c) 2016 - forever Naufal Rabbani
+=======
+Autocomplete Component for Vue.Js
+>>>>>>> b1afa34cc7e991121eceb0def7d47eb7b08c1aba
