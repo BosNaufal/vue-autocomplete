@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue Autocomplete Component</title>
+	<style>
+		.main{
+			margin-left: 35px;
+			display: inline-block;
+			float: left;
+			width: 25%;
+			margin-right: 235px;
+		}
+		.preview{
+			display: inline-block;
+			float: left;
+			max-width: 45%;
+		}
+		pre{
+			background: #f8f8f8;
+			padding: 15px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="main">
+		<h1>Vue Autocomplete {{ vModelLike }}</h1>
+		<autocomplete
+			id="input__id-optional"
+			class="input_class optional"
+			name="people"
+			placeholder="Type Here"
+			url="http://localhost:3000/remote-list/klien"
+			param="q"
+			limit="5"
+			anchor="value"
+			label="label"
+			model="vModelLike">
+		</autocomplete>
+	</div>
+	<div class="preview">
+		<h1>Data Selected</h1>
+		<pre>{{ data | json 2 }}</pre>
+	</div>
+
+	<script src="./build.js"></script>
+</body>
+</html>
