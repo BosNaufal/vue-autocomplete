@@ -242,6 +242,9 @@
 						this.$emit('selectList', this.json[this.focusList]);
 						this.showList = false;
 					break;
+					case 27: //esc
+						this.showList = false;
+					break;
 				}
 
 				// When cursor out of range

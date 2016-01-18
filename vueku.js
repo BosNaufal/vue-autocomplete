@@ -1,231 +1,130 @@
-/*! Copyright (c) 2016 Naufal Rabbani (http://github.com/BosNaufal)
-* Licensed Under MIT (http://opensource.org/licenses/MIT)
-*
-* Version 0.0.1
-*
-*/
+global.Vue = require('vue');
 
-// Transition (Optional)
-Vue.transition('showAll',{});
+new Vue({
+	el: 'body',
 
-var VueAutocomplete = Vue.extend ({
-	template: '<input type="text" :id="id" :class="class" :name="name" :placeholder="placeholder" v-model="type" @input="input(type)" @dblclick="showAll" @blur="hideAll" @keydown="keydown" @focus="focus" /> <div class="autocomplete transition autocomplete-{{ name }}" id="autocomplete-{{ name }}" v-show="showList"> <ul> <li v-for="data in json" transition="showAll" :class="activeClass($index)"> <a href="#" @click.prevent="$emit(\'selectList\',data)" @mousemove="mousemove($index)"> <b>{{ data[anchor] }}</b> <span>{{ data[label] }}</span> </a> </li> </ul> </div>',
-
-	props: {
-		id: String,
-		class: String,
-		name: String,
-		placeholder: String,
-
-		model: String, // v-model like
-
-		// Anchor of AJAX list
-		anchor: {
-			type: String,
-			required: true
-		},
-
-		// Label of AJAX list
-		label: {
-			type: String,
-			required: true
-		},
-
-		url: String, // ajax URL will be get
-
-		// query param
-		param: {
-			type: String,
-			default: 'q'
-		},
-
-		// add 'limit' query to AJAX URL will be fetched
-		limit: {
-			type: String,
-			default: ''
-		}
-
-	},
-
-	data: function () {
+	data(){
 		return {
-			showList: false,
-			type: "",
-			json: [],
-
-			// Get the original data
-			cleanUp: function (data) {
-				return JSON.parse(JSON.stringify(data));
-			},
-
-			focusList: ""
+			vModelLike: "",
+			data: {}
 		};
 	},
 
-	watch:{
-		type: function (val,old){
-			// Sync parent model with $data.type
-			return this.$parent.$data[this.model] = val;
-		}
-	},
-
-	methods: {
-
-		input: function (val){
-			this.showList = true;
-
-			// Callback Event
-			this.$dispatch('autocomplete:input',this.$get('name'),val);
-			this.$dispatch('autocomplete-'+this.$get('name')+':input',val);
-
-			this.$emit('getData',val);
-			return this.$parent.$data[this.model] = val;
-		},
-
-		showAll: function () {
-			this.json = [];
-			this.$emit('getData',"");
-
-			// Callback Event
-			this.$dispatch('autocomplete:show',this.$get('name'));
-			this.$dispatch('autocomplete-'+this.$get('name')+':show');
-
-			this.showList = true;
-		},
-
-		hideAll: function (e) {
-			var self = this;
-
-			// Callback Event
-			this.$dispatch('autocomplete:blur',this.$get('name'),e);
-			this.$dispatch('autocomplete-'+this.$get('name')+':blur',e);
-
-			setTimeout(function () {
-				self.showList = false;
-
-				// Callback Event
-				self.$dispatch('autocomplete:hide',self.$get('name'));
-				self.$dispatch('autocomplete-'+self.$get('name')+':hide');
-
-			},250);
-		},
-
-		focus: function (e) {
-			this.focusList = 0;
-
-			// Callback Event
-			this.$dispatch('autocomplete:focus',this.$get('name'),e);
-			this.$dispatch('autocomplete-'+this.$get('name')+':focus',e);
-
-		},
-
-		mousemove: function (i) {
-			this.focusList = i;
-		},
-
-		keydown: function (e) {
-			var key = e.keyCode;
-
-			// Disable when list isn't showing up
-			if(!this.showList) return;
-
-			switch (key) {
-				case 40: //down
-					this.focusList++;
-				break;
-				case 38: //up
-					this.focusList--;
-				break;
-				case 13: //enter
-					this.$emit('selectList', this.json[this.focusList]);
-					this.showList = false;
-				break;
-			}
-
-			// When cursor out of range
-			var listLength = this.json.length - 1;
-			this.focusList = this.focusList > listLength ? 0 : this.focusList < 0 ? listLength : this.focusList;
-
-		},
-
-		activeClass: function (i) {
-			return {
-				'focus-list' : i == this.focusList
-			};
-		}
-
+	components: {
+		autocomplete: require('./vue-autocomplete.vue')
 	},
 
 	events: {
 
-		selectList: function (data) {
-			var clean = this.cleanUp(data);
+		/**
+		*	Global Autocomplete Callback Event
+		*
+		*	@event-name autocomplete:{event-name}
+		*	@param {String} name name of auto
+		*	@param {Object} data
+		*	@param {Object} json - ajax-loaded only
+		*/
 
-			// Put the selected data to type (model)
-			this.type = clean[this.anchor];
-
-			this.showList = false;
-
-			/**
-			* Callback Event
-			* Deep clone of the original object
-			*/
-			this.$dispatch('autocomplete:selected',this.$get('name'),clean);
-			this.$dispatch('autocomplete-'+this.$get('name')+':selected',clean);
+		// Autocomplete on before ajax progress
+		'autocomplete:before-ajax': function (name,data){
+			console.log('before-ajax',name,data);
 		},
 
-		getData: function (val) {
-			var self = this;
+		// Autocomplete on ajax progress
+		'autocomplete:ajax-progress': function(name,data){
+			console.log('ajax-progress',data);
+		},
 
-			if(this.url != null){
+		// Autocomplete on ajax loaded
+		'autocomplete:ajax-loaded': function(name,data,json){
+			console.log('ajax-loaded',data,json);
+		},
 
-				// Callback Event
-				this.$dispatch('autocomplete:before-ajax',self.$get('name'),val);
-				this.$dispatch('autocomplete-'+self.$get('name')+':before-ajax',val);
+		// Autocomplete on focus
+		'autocomplete:focus': function(name,evt){
+			console.log('focus',name,evt);
+		},
 
-				var ajax = new XMLHttpRequest();
+		// Autocomplete on input
+		'autocomplete:input': function(name,data){
+			console.log('input',data);
+		},
 
-				var limit;
-				if(this.$get('limit') != ''){
-					this.limit = parseFloat(this.limit);
-					limit = this.limit != "" ? '&limit=' + this.limit : '';
-				}else{
-					limit = '';
-				}
+		// Autocomplete on blur
+		'autocomplete:blur': function(name,evt){
+			console.log('blur',evt);
+		},
 
-				ajax.open('GET', this.url+'?'+this.param+'='+val+limit, true);
-				ajax.send();
+		// Autocomplete on show
+		'autocomplete:show': function(name){
+			console.log('show',name);
+		},
 
-				ajax.addEventListener('progress', function (data) {
-					if(data.lengthComputable){
+		// Autocomplete on selected
+		'autocomplete:selected': function(name,data){
+			console.log('selected',data);
+			this.data = data;
+		},
 
-						// Callback Event
-						self.$dispatch('autocomplete:ajax-progress',self.$get('name'),data);
-						self.$dispatch('autocomplete-'+self.$get('name')+':ajax-progress',data);
-					}
-				});
+		// Autocomplete on hide
+		'autocomplete:hide': function(name){
+			console.log('hide',name);
+		},
 
-				ajax.addEventListener('loadend', function (data) {
-					var json = JSON.parse(this.responseText);
 
-					// Callback Event
-					self.$dispatch('autocomplete:ajax-loaded',self.$get('name'),this,json);
-					self.$dispatch('autocomplete-'+self.$get('name')+':ajax-loaded',this,json);
+		/**
+		*	Spesific Autocomplete Callback Event By Name
+		*
+		*	@event-name autocomplete-{component-name}:{event-name}
+		*	@param {String} name name of auto
+		*	@param {Object} data
+		*	@param {Object} json - ajax-loaded only
+		*/
 
-					self.json = json;
-				});
+		// Autocomplete on before ajax progress
+		'autocomplete-people:before-ajax': function(data){
+			console.log('before-ajax-people',data);
+		},
 
-			}
-		}
+		// Autocomplete on ajax progress
+		'autocomplete-people:ajax-progress': function(data){
+			console.log('ajax-progress-people',data);
+		},
 
-	},
+		// Autocomplete on ajax loaded
+		'autocomplete-people:ajax-loaded': function(data,json){
+			console.log('ajax-loaded-people',data,json);
+		},
 
-	created: function () {
-		// Sync parent model with $data.type
-		this.type = this.$parent.$data[this.model];
+		// Autocomplete-people on focus
+		'autocomplete-people:focus': function(evt){
+			console.log('focus-people',evt);
+		},
+
+		// Autocomplete-people on input
+		'autocomplete-people:input': function(data){
+			console.log('input-people',data);
+		},
+
+		// Autocomplete-people on blur
+		'autocomplete-people:blur': function(evt){
+			console.log('blur-people',evt);
+		},
+
+		// Autocomplete-people on show
+		'autocomplete-people:show': function(){
+			console.log('show-people');
+		},
+
+		// Autocomplete-people on selected
+		'autocomplete-people:selected': function(data){
+			console.log('selected-people',data);
+		},
+
+		// Autocomplete-people on hide
+		'autocomplete-people:hide': function(){
+			console.log('hide-people');
+		},
+
 	}
-
 });
-
-// Register
-Vue.component('autocomplete',VueAutocomplete);
