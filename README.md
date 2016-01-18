@@ -1,5 +1,4 @@
 # vue-autocomplete
-<<<<<<< HEAD
 Autocomplete Component for [Vue.Js](http://vuejs.org)
 
 <p align="center">
@@ -220,7 +219,7 @@ events: {
 Hopefully this can be usefull for the others.
 
 ## Let's talk about some projects with me
-Just Contact Me On:
+Just Contact Me At:
 - Email: [bosnaufalemail@gmail.com](mailto:bosnaufalemail@gmail.com)
 - Skype Id: bosnaufal254
 - twitter: [@BosNaufal](https://twitter.com/BosNaufal)
@@ -228,6 +227,3 @@ Just Contact Me On:
 ## License
 [MIT](http://opensource.org/licenses/MIT)
 Copyright (c) 2016 - forever Naufal Rabbani
-=======
-Autocomplete Component for Vue.Js
->>>>>>> b1afa34cc7e991121eceb0def7d47eb7b08c1aba
