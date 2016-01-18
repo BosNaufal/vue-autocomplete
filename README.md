@@ -64,45 +64,45 @@ Full Example:
 
 ## Props
 
-#### `name` (*) : Component Identity
+##### `name` (*) : Component Identity
 will use for Identify the autocomplete component. for multiple use purpose.
+<br/>
 
-
-#### `url` (*) : Ajax URL to fetch
+##### `url` (*) : Ajax URL to fetch
 the URL must be active (not from file). the component will fetch JSON from this URL with (default : `q`) query. like:
 `http://some-url.com/API/list?q=`.
 There are no filter and limit action inside the component. So, do it in your API logic.
+<br/>
 
+##### `param` : name of the search query in Ajax call. default ( q )
+<br/>
 
-#### `param` : name of the search query in Ajax call. default(`q`)
-
-
-#### `limit` : amount of query limit in ajax call.
+##### `limit` : amount of query limit in ajax call.
 example, `limit=5` the AJAX URL will be `http://some-url.com/API/list?q=blabla&limit=5`
+<br/>
 
-
-#### `anchor`(*) : Anchor for Suggestion list
+##### `anchor`(*) : Anchor for Suggestion list
 Anchor for listing suggestions. Example `anchor="name"` will get the name object of your JSON data for suggestion listing like ("Bambang", "Sukijan", "Bejo") in the demo above.
+<br/>
 
-
-#### `label` : Description for Suggestion list
+##### `label` : Description for Suggestion list
 For description to your suggestion. the uses is like `anchor` props but for the description of each suggestion. like ("Alamat", "alamat sesuai ktp", "alamat") in the demo above. not required but if it's null the component will look bad.
+<br/>
 
-
-#### `model` : v-model like for your component
+##### `model` : v-model like for your component
 v-model like of component to make two data binding working like usual.
+<br/>
 
+##### `placeholder` : input placeholder (optional)
+<br/>
 
-#### `placeholder` : input placeholder (optional)
-
-
-#### `class` : Component Class (optional)
+##### `class` : Component Class (optional)
 will generate an class for input element. this only for the input element in autocomplete.
+<br/>
 
-
-#### `id` : Component Id (optional)
+##### `id` : Component Id (optional)
 will generate an Id for input element.
-
+<br/>
 
 ## Callback Events
 Make an events in component's parent than the [vue-autocomplete](https://github.com/BosNaufal/vue-autocomplete) component will dispatch some events to it.
