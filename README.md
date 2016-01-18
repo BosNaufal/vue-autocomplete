@@ -83,14 +83,17 @@ example, `limit=5` the AJAX URL will be `http://some-url.com/API/list?q=blabla&l
 
 ##### `anchor`(*) : Anchor for Suggestion list
 Anchor for listing suggestions. Example `anchor="name"` will get the name object of your JSON data for suggestion listing like ("Bambang", "Sukijan", "Bejo") in the demo above.
+
 <br/>
 
 ##### `label` : Description for Suggestion list
 For description to your suggestion. the uses is like `anchor` props but for the description of each suggestion. like ("Alamat", "alamat sesuai ktp", "alamat") in the demo above. not required but if it's null the component will look bad.
+
 <br/>
 
 ##### `model` : v-model like for your component
 v-model like of component to make two data binding working like usual.
+
 <br/>
 
 ##### `placeholder` : input placeholder (optional)
@@ -98,10 +101,12 @@ v-model like of component to make two data binding working like usual.
 
 ##### `class` : Component Class (optional)
 will generate an class for input element. this only for the input element in autocomplete.
+
 <br/>
 
 ##### `id` : Component Id (optional)
 will generate an Id for input element.
+
 <br/>
 
 ## Callback Events
