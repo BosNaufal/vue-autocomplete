@@ -110,7 +110,10 @@
 	* Version 0.0.1
 	*
 	*/
-
+       
+        // Transition (Optional)
+        import Vue from 'vue'
+       
 	// Transition (Optional)
 	Vue.transition('showAll',{});
 
