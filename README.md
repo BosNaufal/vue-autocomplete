@@ -62,6 +62,18 @@ Full Example:
 </autocomplete>
 ```
 
+## Additional parameters
+
+If you need to pass a second or thirdy parameter in url, use computed for that:
+
+Example: 
+
+``` urlparam: function () {
+                return 'foo=' + this.bar + '&q';
+            }```
+            
+in component change ``` param ="q" for :param="param" ```
+
 ## Props
 
 ##### `name` (*) : Component Identity
