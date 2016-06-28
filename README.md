@@ -64,7 +64,7 @@ Full Example:
 
 ## Additional parameters
 
-If you need to pass a second or thirdy parameter in url, use computed for that:
+If you need to pass more parameters in url, use Computed Properties (https://vuejs.org/guide/computed.html) :
 
 Example: 
 
@@ -74,7 +74,7 @@ Example:
             }
       }```
             
-in component change ``` param ="q" for :param="param" ```
+in component change ```param ="q" for :param="param" ```
 
 ## Props
 
