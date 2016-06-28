@@ -68,9 +68,11 @@ If you need to pass a second or thirdy parameter in url, use computed for that:
 
 Example: 
 
-``` urlparam: function () {
+```  computed: {
+            param: function () {
                 return 'foo=' + this.bar + '&q';
-            }```
+            }
+      }```
             
 in component change ``` param ="q" for :param="param" ```
 
