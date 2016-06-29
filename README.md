@@ -62,6 +62,20 @@ Full Example:
 </autocomplete>
 ```
 
+## Additional parameters
+
+If you need to pass more parameters in url, use Computed Properties (https://vuejs.org/guide/computed.html) :
+
+Example: 
+
+```  computed: {
+            param: function () {
+                return 'foo=' + this.bar + '&q';
+            }
+      }```
+            
+in component change ```param ="q" for :param="param" ```
+
 ## Props
 
 ##### `name` (*) : Component Identity
