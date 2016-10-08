@@ -14,6 +14,12 @@ new Vue({
 		autocomplete: require('./vue-autocomplete.vue')
 	},
 
+  methods: {
+    clearAutocomplete() {
+      this.$refs.myAutocomplete.clearInput()
+    }
+  },
+
 	events: {
 
 		/**

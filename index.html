@@ -26,6 +26,7 @@
 
 	<div class="main">
 		<h1>Vue Autocomplete {{ vModelLike }}</h1>
+    <button @click="clearAutocomplete">Clear</button>
 		<autocomplete
 			id="input__id-optional"
 			class="input_class optional"
@@ -36,7 +37,8 @@
 			limit="5"
 			anchor="value"
 			label="label"
-			model="vModelLike">
+			model="vModelLike"
+      v-ref:my-autocomplete>
 		</autocomplete>
 	</div>
 	<div class="preview">

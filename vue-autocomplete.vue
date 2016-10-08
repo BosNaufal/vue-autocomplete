@@ -1,337 +1,344 @@
 <style>
-	.transition, .autocomplete, .showAll-transition, .autocomplete ul, .autocomplete ul li a{
-		transition:all 0.3s ease-out;
-		-moz-transition:all 0.3s ease-out;
-		-webkit-transition:all 0.3s ease-out;
-		-o-transition:all 0.3s ease-out;
-	}
+  .transition, .autocomplete, .showAll-transition, .autocomplete ul, .autocomplete ul li a{
+    transition:all 0.3s ease-out;
+    -moz-transition:all 0.3s ease-out;
+    -webkit-transition:all 0.3s ease-out;
+    -o-transition:all 0.3s ease-out;
+  }
 
-	.autocomplete ul{
-		font-family: sans-serif;
-		position: absolute;
-		list-style: none;
-		background: #f8f8f8;
-		padding: 10px 0;
-		margin: 0;
-		display: inline-block;
-		min-width: 15%;
-		margin-top: 10px;
-	}
+  .autocomplete ul{
+    font-family: sans-serif;
+    position: absolute;
+    list-style: none;
+    background: #f8f8f8;
+    padding: 10px 0;
+    margin: 0;
+    display: inline-block;
+    min-width: 15%;
+    margin-top: 10px;
+  }
 
-	.autocomplete ul:before{
-		content: "";
-		display: block;
-		position: absolute;
-		height: 0;
-		width: 0;
-		border: 10px solid transparent;
-		border-bottom: 10px solid #f8f8f8;
-		left: 46%;
-		top: -20px
-	}
+  .autocomplete ul:before{
+    content: "";
+    display: block;
+    position: absolute;
+    height: 0;
+    width: 0;
+    border: 10px solid transparent;
+    border-bottom: 10px solid #f8f8f8;
+    left: 46%;
+    top: -20px
+  }
 
-	.autocomplete ul li a{
-		text-decoration: none;
-		display: block;
-		background: #f8f8f8;
-		color: #2b2b2b;
-		padding: 5px;
-		padding-left: 10px;
-	}
+  .autocomplete ul li a{
+    text-decoration: none;
+    display: block;
+    background: #f8f8f8;
+    color: #2b2b2b;
+    padding: 5px;
+    padding-left: 10px;
+  }
 
-	.autocomplete ul li a:hover, .autocomplete ul li.focus-list a{
-		color: white;
-		background: #2F9AF7;
-	}
+  .autocomplete ul li a:hover, .autocomplete ul li.focus-list a{
+    color: white;
+    background: #2F9AF7;
+  }
 
-	.autocomplete ul li a span{
-		display: block;
-		margin-top: 3px;
-		color: grey;
-		font-size: 13px;
-	}
+  .autocomplete ul li a span{
+    display: block;
+    margin-top: 3px;
+    color: grey;
+    font-size: 13px;
+  }
 
-	.autocomplete ul li a:hover span, .autocomplete ul li.focus-list a span{
-		color: white;
-	}
+  .autocomplete ul li a:hover span, .autocomplete ul li.focus-list a span{
+    color: white;
+  }
 
-	.showAll-transition{
-		opacity: 1;
-		height: 50px;
-		overflow: hidden;
-	}
+  .showAll-transition{
+    opacity: 1;
+    height: 50px;
+    overflow: hidden;
+  }
 
-	.showAll-enter{
-		opacity: 0.3;
-		height: 0;
-	}
+  .showAll-enter{
+    opacity: 0.3;
+    height: 0;
+  }
 
-	.showAll-leave{
-		display: none;
-	}
+  .showAll-leave{
+    display: none;
+  }
 
 </style>
 
 <template>
-	<input 	type="text"
-					:id="id"
-					:class="class"
-					:name="name"
-					:placeholder="placeholder"
-					v-model="type"
-					@input="input(type)"
-					@dblclick="showAll"
-					@blur="hideAll"
-					@keydown="keydown"
-					@focus="focus" />
+  <input   type="text"
+          :id="id"
+          :class="class"
+          :name="name"
+          :placeholder="placeholder"
+          v-model="type"
+          @input="input(type)"
+          @dblclick="showAll"
+          @blur="hideAll"
+          @keydown="keydown"
+          @focus="focus" />
 
-	<div class="autocomplete transition autocomplete-{{ name }}" id="autocomplete-{{ name }}" v-show="showList">
-		<ul>
-			<li v-for="data in json"
-					transition="showAll"
-					:class="activeClass($index)">
+  <div class="autocomplete transition autocomplete-{{ name }}" id="autocomplete-{{ name }}" v-show="showList">
+    <ul>
+      <li v-for="data in json"
+          transition="showAll"
+          :class="activeClass($index)">
 
-				<a 	href="#"
-						@click.prevent="$emit('selectList',data)"
-						@mousemove="mousemove($index)">
-					<b>{{ data[anchor] }}</b>
-					<span>{{ data[label] }}</span>
-				</a>
+        <a   href="#"
+            @click.prevent="$emit('selectList',data)"
+            @mousemove="mousemove($index)">
+          <b>{{ data[anchor] }}</b>
+          <span>{{ data[label] }}</span>
+        </a>
 
-			</li>
-		</ul>
-	</div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-	/*! Copyright (c) 2016 Naufal Rabbani (http://github.com/BosNaufal)
-	* Licensed Under MIT (http://opensource.org/licenses/MIT)
-	*
-	* Version 0.0.1
-	*
-	*/
-       
-        // Transition (Optional)
-        import Vue from 'vue'
-       
-	// Transition (Optional)
-	Vue.transition('showAll',{});
+  /*! Copyright (c) 2016 Naufal Rabbani (http://github.com/BosNaufal)
+  * Licensed Under MIT (http://opensource.org/licenses/MIT)
+  *
+  * Version 0.0.1
+  *
+  */
 
-	export default {
-		props: {
-			id: String,
-			class: String,
-			name: String,
-			placeholder: String,
+  // Transition (Optional)
+  import Vue from 'vue'
 
-			model: String, // v-model like
+  // Transition (Optional)
+  Vue.transition('showAll',{});
 
-			// Anchor of AJAX list
-			anchor: {
-				type: String,
-				required: true
-			},
+  export default {
+    props: {
+      id: String,
+      class: String,
+      name: String,
+      placeholder: String,
 
-			// Label of AJAX list
-			label: String,
+      model: String, // v-model like
 
-			// ajax URL will be get
-			url: {
-				type: String,
-				required: true
-			},
+      // Anchor of AJAX list
+      anchor: {
+        type: String,
+        required: true
+      },
 
-			// query param
-			param: {
-				type: String,
-				default: 'q'
-			},
+      // Label of AJAX list
+      label: String,
 
-			// add 'limit' query to AJAX URL will be fetched
-			limit: {
-				type: String,
-				default: ''
-			},
-		},
+      // ajax URL will be get
+      url: {
+        type: String,
+        required: true
+      },
 
-		data() {
-			return {
-				showList: false,
-				type: "",
-				json: [],
+      // query param
+      param: {
+        type: String,
+        default: 'q'
+      },
 
-				// Get the original data
-				cleanUp(data){
-					return JSON.parse(JSON.stringify(data));
-				},
+      // add 'limit' query to AJAX URL will be fetched
+      limit: {
+        type: String,
+        default: ''
+      },
+    },
 
-				focusList: ""
-			};
-		},
+    data() {
+      return {
+        showList: false,
+        type: "",
+        json: [],
+        focusList: ""
+      };
+    },
 
-		watch:{
-			type(val,old){
-				// Sync parent model with $data.type
-				return this.$parent.$data[this.model] = val;
-			}
-		},
+    watch:{
+      type(val,old){
+        // Sync parent model with $data.type
+        return this.$parent.$data[this.model] = val;
+      }
+    },
 
-		methods: {
+    methods: {
 
-			input(val){
-				this.showList = true;
+      // Netralize Autocomplete
+      clearInput() {
+        this.showList = false
+        this.type = ""
+        this.json = []
+        this.focusList = ""
+      },
 
-				// Callback Event
-				this.$dispatch('autocomplete:input',this.$get('name'),val);
-				this.$dispatch(`autocomplete-${this.$get('name')}:input`,val);
+      // Get the original data
+      cleanUp(data){
+        return JSON.parse(JSON.stringify(data));
+      },
 
-				this.$emit('getData',val);
-				return this.$parent.$data[this.model] = val;
-			},
+      input(val){
+        this.showList = true;
 
-			showAll(){
-				this.json = [];
-				this.$emit('getData',"");
+        // Callback Event
+        this.$dispatch('autocomplete:input',this.$get('name'),val);
+        this.$dispatch(`autocomplete-${this.$get('name')}:input`,val);
 
-				// Callback Event
-				this.$dispatch('autocomplete:show',this.$get('name'));
-				this.$dispatch(`autocomplete-${this.$get('name')}:show`);
+        this.$emit('getData',val);
+        return this.$parent.$data[this.model] = val;
+      },
 
-				this.showList = true;
-			},
+      showAll(){
+        this.json = [];
+        this.$emit('getData',"");
 
-			hideAll(e){
-				// Callback Event
-				this.$dispatch('autocomplete:blur',this.$get('name'),e);
-				this.$dispatch(`autocomplete-${this.$get('name')}:blur`,e);
+        // Callback Event
+        this.$dispatch('autocomplete:show',this.$get('name'));
+        this.$dispatch(`autocomplete-${this.$get('name')}:show`);
 
-				setTimeout(() => {
+        this.showList = true;
+      },
 
-					// Callback Event
-					this.$dispatch('autocomplete:hide',this.$get('name'));
-					this.$dispatch(`autocomplete-${this.$get('name')}:hide`);
+      hideAll(e){
+        // Callback Event
+        this.$dispatch('autocomplete:blur',this.$get('name'),e);
+        this.$dispatch(`autocomplete-${this.$get('name')}:blur`,e);
 
-					this.showList = false;
-				},250);
-			},
+        setTimeout(() => {
 
-			focus(e){
-				this.focusList = 0;
+          // Callback Event
+          this.$dispatch('autocomplete:hide',this.$get('name'));
+          this.$dispatch(`autocomplete-${this.$get('name')}:hide`);
 
-				// Callback Event
-				this.$dispatch('autocomplete:focus',this.$get('name'),e);
-				this.$dispatch(`autocomplete-${this.$get('name')}:focus`,e);
+          this.showList = false;
+        },250);
+      },
 
-			},
+      focus(e){
+        this.focusList = 0;
 
-			mousemove(i){
-				this.focusList = i;
-			},
+        // Callback Event
+        this.$dispatch('autocomplete:focus',this.$get('name'),e);
+        this.$dispatch(`autocomplete-${this.$get('name')}:focus`,e);
 
-			keydown(e){
-				let key = e.keyCode;
+      },
 
-				// Disable when list isn't showing up
-				if(!this.showList) return;
+      mousemove(i){
+        this.focusList = i;
+      },
 
-				switch (key) {
-					case 40: //down
-						this.focusList++;
-					break;
-					case 38: //up
-						this.focusList--;
-					break;
-					case 13: //enter
-						this.$emit('selectList', this.json[this.focusList]);
-						this.showList = false;
-					break;
-					case 27: //esc
-						this.showList = false;
-					break;
-				}
+      keydown(e){
+        let key = e.keyCode;
 
-				// When cursor out of range
-				let listLength = this.json.length - 1;
-				this.focusList = this.focusList > listLength ? 0 : this.focusList < 0 ? listLength : this.focusList;
+        // Disable when list isn't showing up
+        if(!this.showList) return;
 
-			},
+        switch (key) {
+          case 40: //down
+            this.focusList++;
+          break;
+          case 38: //up
+            this.focusList--;
+          break;
+          case 13: //enter
+            this.$emit('selectList', this.json[this.focusList]);
+            this.showList = false;
+          break;
+          case 27: //esc
+            this.showList = false;
+          break;
+        }
 
-			activeClass(i){
-				return {
-					'focus-list' : i == this.focusList
-				};
-			}
+        // When cursor out of range
+        let listLength = this.json.length - 1;
+        this.focusList = this.focusList > listLength ? 0 : this.focusList < 0 ? listLength : this.focusList;
 
-		},
+      },
 
-		events: {
+      activeClass(i){
+        return {
+          'focus-list' : i == this.focusList
+        };
+      }
 
-			selectList(data){
-				let clean = this.cleanUp(data);
+    },
 
-				// Put the selected data to type (model)
-				this.type = clean[this.anchor];
+    events: {
 
-				this.showList = false;
+      selectList(data){
+        let clean = this.cleanUp(data);
 
-				/**
-				* Callback Event
-				* Deep clone of the original object
-				*/
-				this.$dispatch('autocomplete:selected',this.$get('name'),clean);
-				this.$dispatch(`autocomplete-${this.$get('name')}:selected`,clean);
-			},
+        // Put the selected data to type (model)
+        this.type = clean[this.anchor];
 
-			getData(val){
-				let self = this;
+        this.showList = false;
 
-				if(this.url != null){
+        /**
+        * Callback Event
+        * Deep clone of the original object
+        */
+        this.$dispatch('autocomplete:selected',this.$get('name'),clean);
+        this.$dispatch(`autocomplete-${this.$get('name')}:selected`,clean);
+      },
 
-					// Callback Event
-					this.$dispatch('autocomplete:before-ajax',self.$get('name'),val);
-					this.$dispatch(`autocomplete-${self.$get('name')}:before-ajax`,val);
+      getData(val){
+        let self = this;
 
-					let ajax = new XMLHttpRequest();
+        if(this.url != null){
 
-					var limit;
-					if(this.$get('limit') != ''){
-						this.limit = parseFloat(this.limit);
-						limit = this.limit != "" ? '&limit=' + this.limit : '';
-					}else{
-						limit = '';
-					}
+          // Callback Event
+          this.$dispatch('autocomplete:before-ajax',self.$get('name'),val);
+          this.$dispatch(`autocomplete-${self.$get('name')}:before-ajax`,val);
 
-					ajax.open('GET', `${this.url}?${this.param}=${val}${limit}`, true);
-					ajax.send();
+          let ajax = new XMLHttpRequest();
 
-					ajax.addEventListener('progress', function (data) {
-						if(data.lengthComputable){
+          var limit;
+          if(this.$get('limit') != ''){
+            this.limit = parseFloat(this.limit);
+            limit = this.limit != "" ? '&limit=' + this.limit : '';
+          }else{
+            limit = '';
+          }
 
-							// Callback Event
-							self.$dispatch('autocomplete:ajax-progress',self.$get('name'),data);
-							self.$dispatch(`autocomplete-${self.$get('name')}:ajax-progress`,data);
-						}
-					});
+          ajax.open('GET', `${this.url}?${this.param}=${val}${limit}`, true);
+          ajax.send();
 
-					ajax.addEventListener('loadend', function (data) {
-						let json = JSON.parse(this.responseText);
+          ajax.addEventListener('progress', function (data) {
+            if(data.lengthComputable){
 
-						// Callback Event
-						self.$dispatch('autocomplete:ajax-loaded',self.$get('name'),this,json);
-						self.$dispatch(`autocomplete-${self.$get('name')}:ajax-loaded`,this,json);
+              // Callback Event
+              self.$dispatch('autocomplete:ajax-progress',self.$get('name'),data);
+              self.$dispatch(`autocomplete-${self.$get('name')}:ajax-progress`,data);
+            }
+          });
 
-						self.json = json;
-					});
+          ajax.addEventListener('loadend', function (data) {
+            let json = JSON.parse(this.responseText);
 
-				}
-			}
+            // Callback Event
+            self.$dispatch('autocomplete:ajax-loaded',self.$get('name'),this,json);
+            self.$dispatch(`autocomplete-${self.$get('name')}:ajax-loaded`,this,json);
 
-		},
+            self.json = json;
+          });
 
-		created(){
-			// Sync parent model with $data.type
-			this.type = this.$parent.$data[this.model];
-		}
+        }
+      }
 
-	}
+    },
+
+    created(){
+      // Sync parent model with $data.type
+      this.type = this.$parent.$data[this.model];
+    }
+
+  }
 </script>
