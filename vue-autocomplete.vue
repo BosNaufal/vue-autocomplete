@@ -149,7 +149,7 @@
 
       // minimum length
       min: {
-        type: Number,
+        type: String,
         default: 3
       },
 
