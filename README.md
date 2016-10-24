@@ -93,6 +93,9 @@ There are no filter and limit action inside the component. So, do it in your API
 ##### `param` : name of the search query in Ajax call. default ( q )
 <br/>
 
+##### `min` : Minimum input typed chars before performing the search query. default ( 3 )
+<br/>
+
 ##### `limit` : amount of query limit in ajax call.
 example, `limit=5` the AJAX URL will be `http://some-url.com/API/list?q=blabla&limit=5`
 
