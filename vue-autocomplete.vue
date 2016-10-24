@@ -150,7 +150,7 @@
       // minimum length
       min: {
         type: String,
-        default: 3
+        default: 0
       },
 
       // add 'limit' query to AJAX URL will be fetched
