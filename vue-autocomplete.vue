@@ -147,6 +147,12 @@
         default: 'q'
       },
 
+      // minimum length
+      min: {
+        type: String,
+        default: 0
+      },
+
       // add 'limit' query to AJAX URL will be fetched
       limit: {
         type: String,
@@ -291,6 +297,8 @@
 
       getData(val){
         let self = this;
+
+        if (val.length < this.min) return;
 
         if(this.url != null){
 
