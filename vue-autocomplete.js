@@ -9,7 +9,7 @@
 Vue.transition('showAll',{});
 
 var VueAutocomplete = Vue.extend ({
-  template: '<input type="text" :id="id" :class="class" :name="name" :placeholder="placeholder" v-model="type" @input="input(type)" @dblclick="showAll" @blur="hideAll" @keydown="keydown" @focus="focus" /> <div class="autocomplete transition autocomplete-{{ name }}" id="autocomplete-{{ name }}" v-show="showList"> <ul> <li v-for="data in json" transition="showAll" :class="activeClass($index)"> <a href="#" @click.prevent="$emit(\'selectList\',data)" @mousemove="mousemove($index)"> <b>{{ data[anchor] }}</b> <span>{{ data[label] }}</span> </a> </li> </ul> </div>',
+  template: '<input type="text" :id="id" :class="class" :name="name" :placeholder="placeholder" v-model="type" @input="input(type)" @dblclick="showAll" @blur="hideAll" @keydown="keydown" @focus="focus" autocomplete="off"/> <div class="autocomplete transition autocomplete-{{ name }}" id="autocomplete-{{ name }}" v-show="showList"> <ul> <li v-for="data in json" transition="showAll" :class="activeClass($index)"> <a href="#" @click.prevent="$emit(\'selectList\',data)" @mousemove="mousemove($index)"> <b>{{ data[anchor] }}</b> <span>{{ data[label] }}</span> </a> </li> </ul> </div>',
 
   props: {
     id: String,

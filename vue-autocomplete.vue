@@ -83,7 +83,8 @@
           @dblclick="showAll"
           @blur="hideAll"
           @keydown="keydown"
-          @focus="focus" />
+          @focus="focus"
+          autocomplete="off"/>
 
   <div class="autocomplete transition autocomplete-{{ name }}" id="autocomplete-{{ name }}" v-show="showList">
     <ul>
@@ -149,7 +150,7 @@
 
       // minimum length
       min: {
-        type: String,
+        type: Number,
         default: 0
       },
 
