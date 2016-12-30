@@ -40,6 +40,12 @@ var VueAutocomplete = Vue.extend ({
       default: 'q'
     },
 
+    // minimum length
+    min: {
+      type: Number,
+      default: 0
+    },
+
     // add 'limit' query to AJAX URL will be fetched
     limit: {
       type: String,
@@ -187,6 +193,8 @@ var VueAutocomplete = Vue.extend ({
 
     getData: function (val) {
       var self = this;
+      
+      if (val.length < this.min) return;
 
       if(this.url != null){
 
