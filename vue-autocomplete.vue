@@ -78,7 +78,6 @@
           :class="class"
           :name="name"
           :placeholder="placeholder"
-          v-model="type"
           @input="input(type)"
           @dblclick="showAll"
           @blur="hideAll"
@@ -194,6 +193,9 @@
 
       input(val){
         this.showList = true;
+        
+        //You can not use v-model with some mobile browsers.
+        this.type = val;
 
         // Callback Event
         this.$dispatch('autocomplete:input',this.$get('name'),val);
