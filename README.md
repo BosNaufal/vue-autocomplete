@@ -68,11 +68,13 @@ If you need to pass more parameters in url, use Computed Properties (https://vue
 
 Example:
 
-```  computed: {
-            param: function () {
-                return 'foo=' + this.bar + '&q';
-            }
-      }```
+```JavaScript
+computed: {
+  param: function () {
+    return 'foo=' + this.bar + '&q';
+  }
+}
+```
 
 in component change ```param ="q" for :param="param" ```
 
